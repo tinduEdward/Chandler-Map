@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.search {
+    z-index: 1;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    border-radius: 25px;
+}
+
+.search-field {
+    width: 320px;
+    padding: 5px;
+}
+
+ul {
+    background: white;
+    border: 1px solid darkgrey;
+    overflow: auto;
+    padding: 0px;
+    margin: 0;
+    max-height: 200px;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.box {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.box:hover {
+    background-color: #269abc;
+    color: white;
+}
+
+.button {
+    text-align: center;
+    padding: 5px;
+    background-color: white;
+    border: 1px darkgrey solid;
+    cursor: pointer;
+    width: 334px;
+    border-radius: 10px;
+    width: 100%
+}
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    border-radius: 10px;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
