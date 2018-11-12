@@ -1,6 +1,3 @@
-/**
- * Created by manish on 6/1/18.
- */
 import React, {Component} from 'react';
 import LocationItem from './LocationItem';
 

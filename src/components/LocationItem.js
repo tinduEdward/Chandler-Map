@@ -1,6 +1,3 @@
-/**
- * Created by manish on 6/1/18.
- */
 import React from 'react';
 
 class LocationItem extends React.Component {
