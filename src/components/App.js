@@ -41,7 +41,7 @@ class App extends Component {
                     'streetAddress': "3201 S Gilbert Rd, Chandler, AZ 85286"
                 },
                 {
-                    'name': "Perry Public School",
+                    'name': "Perry High School",
                     'type': "High School",
                     'latitude': 33.267012,
                     'longitude': -111.748510,
@@ -85,29 +85,33 @@ class App extends Component {
             ],
             'map': '',
             'infowindow': '',
-            'prevmarker': ''
+            'prevmarker': '',
+            'mapLoadSuccess': true
         };
 
         // retain object instance when used in the function
         this.initMap = this.initMap.bind(this);
+        this.gm_authFailure = this.gm_authFailure.bind(this);
         this.openInfoWindow = this.openInfoWindow.bind(this);
         this.closeInfoWindow = this.closeInfoWindow.bind(this);
     }
 
-    componentDidMount() {
-        // Connect the initMap() function within this class to the global window context,
-        // so Google Maps can invoke it
+    componentWillMount() {
+        window.gm_authFailure = this.gm_authFailure;
         window.initMap = this.initMap;
-        // Asynchronously load the Google Maps script, passing in the callback reference
         loadMapJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyCd20ay1K8_L225QDTaznm3v2HnJyK4nmM&callback=initMap')
+    }
+    
+    componentDidMount() {
+
     }
 
     /**
      * Initialise the map once the google map script is loaded
      */
+    
     initMap() {
         var self = this;
-
         var mapview = document.getElementById('map');
         mapview.style.height = window.innerHeight + "px";
         var map = new window.google.maps.Map(mapview, {
@@ -293,6 +297,15 @@ class App extends Component {
             'alllocations': alllocations
         });
     }
+    
+    gm_authFailure() { 
+        this.setState({
+            'mapLoadSuccess': false,
+            'alllocations': []
+        })
+    };
+    
+
 
     /**
      * Open the infowindow for the marker
@@ -319,7 +332,7 @@ class App extends Component {
         var self = this;
         var clientId = "YX2PPKZUIISBKGBCPQX5JJPSMDVLZUBX2EUWSWCSDJTQ0LR1";
         var clientSecret = "Q1HP2QQQEB0CYFAXUMLRO5C3KSTGA2Z34LTQ5DVMNS0NHUO1";
-        var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
+        var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1" + "&query=" + location_name;
         fetch(url)
             .then(
                 function (response) {
@@ -331,7 +344,6 @@ class App extends Component {
                     // Examine the text in the response
                     response.json().then(function (data) {
                         var location_data = data.response.venues[0];
-                        var verified = '<b>Verified Location: </b>' + (location_data.verified ? 'Yes' : 'No') + '<br>';
                         let location_html = '<h2 style="padding: 0; margin: 0">' + location_name + '</h2>' + '<h4 style="padding: 0; margin: 0">' + location_type + '</h4>'
                         var readMore = '<a href="https://foursquare.com/v/' + location_data.id + '" target="_blank">Get more details!</a>'
                         let cross_street = location_data.location.crossStreet ? location_data.location.crossStreet : 'Sorry, Unavailable'
@@ -346,8 +358,7 @@ class App extends Component {
                         default:
                             school_image = 'images/school3.jpeg';
                         }
-                        let location_image = "<div style='float:left'><img src=" + school_image + " width='200px' height='auto'></div><div style='float:right; padding: 10px;'><b>Cross-Street : </b><br/> " + cross_street + "<br/>" + readMore + "</div>"
-                            //let location_image = "<div style='width:200px;height:200px;overflow:hidden;' <img src='http://localhost:3000/images/school1.jpeg' width='200px' height='auto'></div>"
+                        let location_image = "<div style='float:left'><img alt='School Image' src=" + school_image + " width='200px' height='auto'></div><div style='float:right; padding: 10px;'><b>Cross-Street : </b><br/> " + cross_street + "<br/>" + readMore + "</div>"
                         self.state.infowindow.setContent(location_html + location_image);
                     });
                 }
@@ -375,9 +386,13 @@ class App extends Component {
      * Render function of App
      */
     render() {
-        return ( <div> <LocationList key = "100" alllocations = {this.state.alllocations} 
+        if (this.state.mapLoadSuccess) {
+            return ( <div> <LocationList key = "100" alllocations = {this.state.alllocations} 
                 openInfoWindow = { this.openInfoWindow } closeInfoWindow = { this.closeInfoWindow }/> <div id = "map" > </div></div>
-        );
+            );   
+        } else {
+            return (<div><h1>Google Map Authentication failed</h1><h2>Please check your key</h2></div>)
+        }
     }
 }
 
@@ -393,7 +408,7 @@ function loadMapJS(src) {
     script.src = src;
     script.async = true;
     script.onerror = function () {
-        document.write("Google Maps can't be loaded");
+        document.write("<h1>Google Maps can't be loaded</h1><h2>Please check your connection and reload he page</h2>");
     };
     ref.parentNode.insertBefore(script, ref);
 }

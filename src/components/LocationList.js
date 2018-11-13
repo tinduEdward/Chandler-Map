@@ -68,10 +68,10 @@ class LocationList extends Component {
             <div className="search">
                 <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter"
                        value={this.state.query} onChange={this.filterLocations}/>
-                <ul>
+                <ul id="locations">
                     {this.state.suggestions && locationlist}
                 </ul>
-                <button className="button" onClick={this.toggleSuggestions}>Show/Hide Typeahead</button>
+                <button className="button" onClick={this.toggleSuggestions} role="button">Show/Hide Typeahead</button>
             </div>
         );
     }
