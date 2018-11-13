@@ -1,0 +1,64 @@
+{
+    "meta": {
+        "code": 200,
+        "requestId": "5be9ede01ed2195a733dfd79"
+    },
+    "response": {
+        "venues": [{
+            "id": "4bc36ec0461576b0faa17e32",
+            "name": "Chief Hill Learning Academy",
+            "contact": {},
+            "location": {
+                "address": "290 S Cooper Rd",
+                "crossStreet": "Cooper & Frye",
+                "lat": 33.2991010159079,
+                "lng": -111.80730810741672,
+                "labeledLatLngs": [{
+                    "label": "display",
+                    "lat": 33.2991010159079,
+                    "lng": -111.80730810741672
+                }],
+                "distance": 171,
+                "postalCode": "85225",
+                "cc": "US",
+                "city": "Chandler",
+                "state": "AZ",
+                "country": "United States",
+                "formattedAddress": ["290 S Cooper Rd (Cooper & Frye)", "Chandler, AZ 85225", "United States"]
+            },
+            "categories": [{
+                "id": "4bf58dd8d48988d13d941735",
+                "name": "High School",
+                "pluralName": "High Schools",
+                "shortName": "High School",
+                "icon": {
+                    "prefix": "https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/school_",
+                    "suffix": ".png"
+                },
+                "primary": true
+            }],
+            "verified": false,
+            "stats": {
+                "tipCount": 0,
+                "usersCount": 0,
+                "checkinsCount": 0,
+                "visitsCount": 0
+            },
+            "beenHere": {
+                "count": 0,
+                "lastCheckinExpiredAt": 0,
+                "marked": false,
+                "unconfirmedCount": 0
+            },
+            "hereNow": {
+                "count": 0,
+                "summary": "Nobody here",
+                "groups": []
+            },
+            "referralId": "v-1542057441",
+            "venueChains": [],
+            "hasPerk": false
+        }],
+        "confident": true
+    }
+}
